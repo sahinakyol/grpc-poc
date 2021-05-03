@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: corona-client-service
+
+server:
+  port: 8080
+grpc:
+  client:
+    country-service:
+      address: static://localhost:7070
+      negotiationType: plaintext
+    corona-service:
+      address: static://localhost:9090
+      negotiationType: plaintext

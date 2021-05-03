@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+
+package com.protomodule.service;
+
+message Empty {}
+
+message CountryRequest {
+  int32 id = 1;
+}
+
+message Country {
+  int32 id = 1;
+  string name = 2;
+  int32 population = 3;
+}
+
+message CountryResponse {
+  repeated Country country = 1;
+}
+
+service CountryService {
+  rpc getCountries(Empty) returns (CountryResponse) {}
+  rpc getCountryByIdAsStream(CountryRequest) returns (stream Country) {}
+  rpc getCountriesAsStream(Empty) returns (stream Country) {}
+}
+
+// -----------------------------------------------------------------------
+
+message Corona {
+  int32 countryId = 1;
+  int32 testNumber = 2;
+  int32 caseNumber = 3;
+  int32 patientNumber = 4;
+  int32 deathNumber = 5;
+  int32 recoveringNumber = 6;
+}
+
+message CoronaResponse {
+  repeated Corona corona = 1;
+}
+
+message CoronaRequest {
+  int32 id = 1;
+}
+
+service CoronaService {
+  rpc getCoronaCases(Empty) returns (CoronaResponse) {}
+  rpc getCoronaCasesAsStream(Empty) returns (stream Corona) {}
+  rpc getCoronaCasesByIdAsStream(CoronaRequest) returns (stream Corona) {}
+}
+
+// -----------------------------------------------------------------------
+
+message Case {
+  Country country = 1;
+  Corona corona = 2;
+}
