@@ -6,10 +6,6 @@ package com.protomodule.service;
 
 message Empty {}
 
-message CountryRequest {
-  int32 id = 1;
-}
-
 message Country {
   int32 id = 1;
   string name = 2;
@@ -22,11 +18,21 @@ message CountryResponse {
 
 service CountryService {
   rpc getCountries(Empty) returns (CountryResponse) {}
-  rpc getCountryByIdAsStream(CountryRequest) returns (stream Country) {}
   rpc getCountriesAsStream(Empty) returns (stream Country) {}
+  rpc getCountryByIdAsStream(CountryRequest) returns (stream Country) {}
+}
+
+message CountryRequest {
+  int32 id = 1;
 }
 
 // -----------------------------------------------------------------------
+
+service CoronaService {
+  rpc getCoronaCases(Empty) returns (CoronaResponse) {}
+  rpc getCoronaCasesAsStream(Empty) returns (stream Corona) {}
+  rpc getCoronaCasesByIdAsStream(CoronaRequest) returns (stream Corona) {}
+}
 
 message Corona {
   int32 countryId = 1;
@@ -40,15 +46,8 @@ message Corona {
 message CoronaResponse {
   repeated Corona corona = 1;
 }
-
 message CoronaRequest {
   int32 id = 1;
-}
-
-service CoronaService {
-  rpc getCoronaCases(Empty) returns (CoronaResponse) {}
-  rpc getCoronaCasesAsStream(Empty) returns (stream Corona) {}
-  rpc getCoronaCasesByIdAsStream(CoronaRequest) returns (stream Corona) {}
 }
 
 // -----------------------------------------------------------------------
